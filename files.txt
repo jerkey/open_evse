@@ -1,0 +1,22 @@
+Adafruit_TMP007.cpp for IR thermometer https://www.adafruit.com/products/2023
+avrstuff.cpp for finding out what port number and bit various pins are
+Gfi.cpp interrupt handler and init for GFCI trigger
+I2CIO.cpp basic IO library using the PCF8574 I2C IO Expander Chip
+J1772EvseController.cpp PILOT_PIN CURRENT_PIN VOLTMETER_PIN EOFS_CURRENT_CAPACITY PILOT_STATE_P12 WDTO_1S m_bVFlags pinCharging 
+J1772Pilot.cpp Init SetState SetPWM 
+LCD.cpp LCD just the usual LCD driver
+LiquidCrystal_I2C.cpp for using an LCD with PCF8574* I2C IO Expander ASIC
+LiquidTWI2.cpp i2c LCD driver for MCP23008 & MCP23017 / LCD backpack (MCP23008)
+MCP9808.cpp I2C Driver for Microchip's MCP9808 I2C High-Accuracy Temp sensor
+open_evse.ino
+open_evse.h
+pwmtest_pde/* program to test PWM output for pilot signal
+ammeter_cal/* computer program to calibrate ammeter over RAPI interface
+rapi_checksum/* Lincomatic OpenEVSE RAPI Checksum Generator V1.0
+rapi_proc.cpp htou8() dtou32() RapiInit() RapiDoCmd() RapiSendEvseState() RapiSetWifiMode()
+RTClib.cpp date/time functions and DS1307 implementation
+serialcli.cpp serial commandline interface
+strings.cpp actual text strings for serial and LCD printing text
+Time.cpp low level time and date calculations and millis() interface
+twi.c TWI/I2C library for Wiring & Arduino
+Wire.cpp TwoWire.cpp - TWI/I2C library for Wiring & Arduino
