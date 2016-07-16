@@ -190,7 +190,9 @@ void J1772EVSEController::Reboot()
 #ifdef SHOW_DISABLED_TESTS
 void J1772EVSEController::DisabledTest_P(PGM_P message)
 {
+#ifdef LCD16X2
   g_OBD.LcdMsg_P(g_psDisabledTests, message);
+#endif
 #ifndef NOCHECKS
   delay(SHOW_DISABLED_DELAY);
 #endif
@@ -204,7 +206,9 @@ void J1772EVSEController::ShowDisabledTests()
 		  ECF_STUCK_RELAY_CHK_DISABLED|
 		  ECF_GFI_TEST_DISABLED|
                   ECF_TEMP_CHK_DISABLED)) {
+#ifdef LCD16X2
     g_OBD.LcdSetBacklightColor(YELLOW);
+#endif
 
     if (!DiodeCheckEnabled()) {
       DisabledTest_P(g_psDiodeCheck);
@@ -231,7 +235,9 @@ void J1772EVSEController::ShowDisabledTests()
     }
 #endif // TEMPERATURE_MONITORING
 
+#ifdef LCD16X2
     g_OBD.LcdSetBacklightColor(WHITE);
+#endif
   }
 }
 #endif //SHOW_DISABLED_TESTS
@@ -752,7 +758,9 @@ uint8_t J1772EVSEController::doPost()
 #endif
 
   if ((svcState == OG)||(svcState == SR)||(svcState == FG)) {
+#ifdef LCD16X2
     g_OBD.LcdSetBacklightColor(RED);
+#endif
     g_OBD.SetGreenLed(0);
     g_OBD.SetRedLed(1);
   }
@@ -893,7 +901,9 @@ void J1772EVSEController::Init()
   while (1) {
     WDT_RESET();
     sprintf(g_sTmp,"%d",(int)ReadACPins());
+#ifdef LCD16X2
     g_OBD.LcdMsg("AC Pins",g_sTmp);
+#endif
   }
 #endif // FT_READ_AC_PINS
  

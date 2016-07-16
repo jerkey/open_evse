@@ -59,21 +59,26 @@
 #endif // TEMPERATURE_MONITORING
 
 
+#ifdef BTN_MENU
 SettingsMenu g_SettingsMenu;
 SetupMenu g_SetupMenu;
 SvcLevelMenu g_SvcLevelMenu;
 MaxCurrentMenu g_MaxCurrentMenu;
 DiodeChkMenu g_DiodeChkMenu;
+#endif
+
 #ifdef RGBLCD
 BklTypeMenu g_BklTypeMenu;
 #endif // RGBLCD
-#ifdef GFI_SELFTEST
+#if defined(GFI_SELFTEST) && defined(BTN_MENU)
 GfiTestMenu g_GfiTestMenu;
 #endif
 #ifdef TEMPERATURE_MONITORING
 TempOnOffMenu g_TempOnOffMenu;
 #endif // TEMPERATURE_MONITORING
+#ifdef BTN_MENU
 VentReqMenu g_VentReqMenu;
+#endif
 #ifdef ADVPWR
 GndChkMenu g_GndChkMenu;
 RlyChkMenu g_RlyChkMenu;
@@ -132,7 +137,7 @@ Menu *g_SetupMenuList[] = {
   &g_GndChkMenu,
   &g_RlyChkMenu,
 #endif // ADVPWR
-#ifdef GFI_SELFTEST
+#if defined(GFI_SELFTEST) && defined(BTN_MENU)
   &g_GfiTestMenu,
 #endif // GFI_SELFTEST
 #ifdef TEMPERATURE_MONITORING
@@ -1279,7 +1284,7 @@ Menu *DiodeChkMenu::Select()
   return &g_SetupMenu;
 }
 
-#ifdef GFI_SELFTEST
+#if defined(GFI_SELFTEST) && defined(BTN_MENU)
 GfiTestMenu::GfiTestMenu()
 {
   m_Title = g_psGfiTest;
@@ -2258,6 +2263,7 @@ void setup()
   delay(400);  // give I2C devices time to be ready before running code that wants to initialize I2C devices.  Otherwise a hang can occur upon powerup.
   
   Serial.begin(SERIAL_BAUD);
+  Serial.println("HELLO THIS IS OPENEVSE.INO HOW ARE YOU");
 
 #ifdef BTN_MENU
   g_BtnHandler.init();

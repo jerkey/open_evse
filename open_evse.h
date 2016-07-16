@@ -107,13 +107,13 @@
 #define GFI_SELFTEST
 #endif //UL_GFI_SELFTEST
 
-#define TEMPERATURE_MONITORING  // Temperature monitoring support
+//#define TEMPERATURE_MONITORING  // Temperature monitoring support
 // not yet #define TEMPERATURE_MONITORING_NY
 
 #ifdef AMMETER
 // kWh Recording feature depends upon #AMMETER support
 // comment out KWH_RECORDING to have the elapsed time and time of day displayed on the second line of the LCD
-#define KWH_RECORDING
+//#define KWH_RECORDING
 #ifdef KWH_RECORDING
 // stop charging after a certain kWh reached
 #define CHARGE_LIMIT
@@ -121,7 +121,7 @@
 #endif //AMMETER
 
 //Adafruit RGBLCD (MCP23017) - can have RGB or monochrome backlight
-#define RGBLCD
+//#define RGBLCD
 
 //select default LCD backlight mode. can be overridden w/CLI/RAPI
 #define BKL_TYPE_MONO 0
@@ -147,7 +147,7 @@
 // How to use 1-button menu
 // Long press activates menu
 // When within menus, short press cycles menu items, long press selects and exits current submenu
-#define BTN_MENU
+//#define BTN_MENU
 
 // When not in menus, short press instantly stops the EVSE - another short press resumes.  Long press activates menus
 // also allows menus to be manipulated even when in State B/C
