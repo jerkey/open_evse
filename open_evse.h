@@ -136,7 +136,7 @@
 //#define I2CLCD_PCF8574
 
 // Advanced Powersupply... Ground check, stuck relay, L1/L2 detection.
-#define ADVPWR
+//#define ADVPWR
 
 // valid only if ADVPWR defined - for rectified MID400 chips which block
 // half cycle (for ground check on both legs)

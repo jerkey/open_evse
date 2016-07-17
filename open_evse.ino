@@ -73,17 +73,17 @@ BklTypeMenu g_BklTypeMenu;
 #if defined(GFI_SELFTEST) && defined(BTN_MENU)
 GfiTestMenu g_GfiTestMenu;
 #endif
-#ifdef TEMPERATURE_MONITORING
+#if defined(TEMPERATURE_MONITORING) && defined(BTN_MENU)
 TempOnOffMenu g_TempOnOffMenu;
 #endif // TEMPERATURE_MONITORING
 #ifdef BTN_MENU
 VentReqMenu g_VentReqMenu;
+ResetMenu g_ResetMenu;
 #endif
-#ifdef ADVPWR
+#if defined(ADVPWR) && defined(BTN_MENU)
 GndChkMenu g_GndChkMenu;
 RlyChkMenu g_RlyChkMenu;
 #endif // ADVPWR
-ResetMenu g_ResetMenu;
 // Instantiate additional Menus - GoldServe
 #if defined(DELAYTIMER_MENU)
 RTCMenu g_RTCMenu;
@@ -102,7 +102,7 @@ DelayMenuStopMin g_DelayMenuStopMin;
 #ifdef CHARGE_LIMIT
 ChargeLimitMenu g_ChargeLimitMenu;
 #endif // CHARGE_LIMIT
-#ifdef TIME_LIMIT
+#if defined(TIME_LIMIT) && defined(BTN_MENU)
 TimeLimitMenu g_TimeLimitMenu;
 #endif // TIME_LIMIT
 
@@ -133,7 +133,7 @@ Menu *g_SetupMenuList[] = {
   &g_MaxCurrentMenu,
   &g_DiodeChkMenu,
   &g_VentReqMenu,
-#ifdef ADVPWR
+#if defined(ADVPWR) && defined(BTN_MENU)
   &g_GndChkMenu,
   &g_RlyChkMenu,
 #endif // ADVPWR
@@ -910,6 +910,7 @@ void Btn::read()
 #endif // RAPI
 }
 
+#ifdef BTN_MENU
 uint8_t Btn::shortPress()
 {
   if ((buttonState == BTN_STATE_SHORT) && !lastDebounceTime) {
@@ -954,6 +955,7 @@ SettingsMenu::SettingsMenu()
     m_menuCnt++;
   }
 }
+#endif
 
 #if defined(CHARGE_LIMIT)||defined(TIME_LIMIT)
 void SettingsMenu::CheckSkipLimits()

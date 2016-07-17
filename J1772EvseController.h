@@ -113,8 +113,8 @@ class J1772EVSEController {
 #ifdef SLEEP_STATUS_REG
   DigitalPin pinSleepStatus;
 #endif
-#ifdef ADVPWR
   unsigned long m_NoGndStart;
+#ifdef ADVPWR
   unsigned long m_NoGndRetryCnt;
   uint8_t m_NoGndTripCnt; // contains tripcnt-1
   unsigned long m_StuckRelayStartTimeMS;
