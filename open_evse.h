@@ -147,7 +147,7 @@
 // How to use 1-button menu
 // Long press activates menu
 // When within menus, short press cycles menu items, long press selects and exits current submenu
-#define BTN_MENU
+// #define BTN_MENU
 
 // When not in menus, short press instantly stops the EVSE - another short press resumes.  Long press activates menus
 // also allows menus to be manipulated even when in State B/C
