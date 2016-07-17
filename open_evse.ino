@@ -58,29 +58,29 @@
   #endif 
 #endif // TEMPERATURE_MONITORING
 
-
+#ifdef BTN_MENU
 SettingsMenu g_SettingsMenu;
 SetupMenu g_SetupMenu;
 SvcLevelMenu g_SvcLevelMenu;
 MaxCurrentMenu g_MaxCurrentMenu;
 DiodeChkMenu g_DiodeChkMenu;
-#ifdef RGBLCD
+# ifdef RGBLCD
 BklTypeMenu g_BklTypeMenu;
-#endif // RGBLCD
-#ifdef GFI_SELFTEST
+# endif // RGBLCD
+# ifdef GFI_SELFTEST
 GfiTestMenu g_GfiTestMenu;
-#endif
-#ifdef TEMPERATURE_MONITORING
+# endif
+# ifdef TEMPERATURE_MONITORING
 TempOnOffMenu g_TempOnOffMenu;
-#endif // TEMPERATURE_MONITORING
+# endif // TEMPERATURE_MONITORING
 VentReqMenu g_VentReqMenu;
-#ifdef ADVPWR
+# ifdef ADVPWR
 GndChkMenu g_GndChkMenu;
 RlyChkMenu g_RlyChkMenu;
-#endif // ADVPWR
+# endif // ADVPWR
 ResetMenu g_ResetMenu;
 // Instantiate additional Menus - GoldServe
-#if defined(DELAYTIMER_MENU)
+# if defined(DELAYTIMER_MENU)
 RTCMenu g_RTCMenu;
 RTCMenuMonth g_RTCMenuMonth;
 RTCMenuDay g_RTCMenuDay;
@@ -93,55 +93,54 @@ DelayMenuStartHour g_DelayMenuStartHour;
 DelayMenuStopHour g_DelayMenuStopHour;
 DelayMenuStartMin g_DelayMenuStartMin;
 DelayMenuStopMin g_DelayMenuStopMin;
-#endif // DELAYTIMER_MENU
-#ifdef CHARGE_LIMIT
+# endif // DELAYTIMER_MENU
+# ifdef CHARGE_LIMIT
 ChargeLimitMenu g_ChargeLimitMenu;
-#endif // CHARGE_LIMIT
-#ifdef TIME_LIMIT
+# endif // CHARGE_LIMIT
+# ifdef TIME_LIMIT
 TimeLimitMenu g_TimeLimitMenu;
-#endif // TIME_LIMIT
+# endif // TIME_LIMIT
 
 
 Menu *g_SettingsMenuList[] = {
-#ifdef TIME_LIMIT
+# ifdef TIME_LIMIT
   &g_TimeLimitMenu,
-#endif // TIME_LIMIT
-#ifdef CHARGE_LIMIT
+# endif // TIME_LIMIT
+# ifdef CHARGE_LIMIT
   &g_ChargeLimitMenu,
-#endif // CHARGE_LIMIT
-#ifdef DELAYTIMER_MENU
+# endif // CHARGE_LIMIT
+# ifdef DELAYTIMER_MENU
   &g_DelayMenu,
-#endif // DELAYTIMER_MENU
+# endif // DELAYTIMER_MENU
   &g_SetupMenu,
   &g_ResetMenu,
   NULL
 };
 
 Menu *g_SetupMenuList[] = {
-#ifdef DELAYTIMER_MENU
+# ifdef DELAYTIMER_MENU
   &g_RTCMenu,
-#endif // DELAYTIMER_MENU
-#ifdef RGBLCD
+# endif // DELAYTIMER_MENU
+# ifdef RGBLCD
   &g_BklTypeMenu,
-#endif // RGBLCD
+# endif // RGBLCD
   &g_SvcLevelMenu,
   &g_MaxCurrentMenu,
   &g_DiodeChkMenu,
   &g_VentReqMenu,
-#ifdef ADVPWR
+# ifdef ADVPWR
   &g_GndChkMenu,
   &g_RlyChkMenu,
-#endif // ADVPWR
-#ifdef GFI_SELFTEST
+# endif // ADVPWR
+# ifdef GFI_SELFTEST
   &g_GfiTestMenu,
-#endif // GFI_SELFTEST
-#ifdef TEMPERATURE_MONITORING
+# endif // GFI_SELFTEST
+# ifdef TEMPERATURE_MONITORING
   &g_TempOnOffMenu,
-#endif // TEMPERATURE_MONITORING
+# endif // TEMPERATURE_MONITORING
   NULL
 };
 
-#ifdef BTN_MENU
 BtnHandler g_BtnHandler;
 #endif // BTN_MENU
 
