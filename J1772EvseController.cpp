@@ -190,7 +190,9 @@ void J1772EVSEController::Reboot()
 #ifdef SHOW_DISABLED_TESTS
 void J1772EVSEController::DisabledTest_P(PGM_P message)
 {
+# ifdef LCD16X2
   g_OBD.LcdMsg_P(g_psDisabledTests, message);
+# endif
 #ifndef NOCHECKS
   delay(SHOW_DISABLED_DELAY);
 #endif
@@ -204,7 +206,9 @@ void J1772EVSEController::ShowDisabledTests()
 		  ECF_STUCK_RELAY_CHK_DISABLED|
 		  ECF_GFI_TEST_DISABLED|
                   ECF_TEMP_CHK_DISABLED)) {
+#ifdef LCD16X2
     g_OBD.LcdSetBacklightColor(YELLOW);
+#endif
 
     if (!DiodeCheckEnabled()) {
       DisabledTest_P(g_psDiodeCheck);
@@ -230,8 +234,9 @@ void J1772EVSEController::ShowDisabledTests()
       DisabledTest_P(g_psTempChk);
     }
 #endif // TEMPERATURE_MONITORING
-
+#ifdef LCD16X2
     g_OBD.LcdSetBacklightColor(WHITE);
+#endif
   }
 }
 #endif //SHOW_DISABLED_TESTS
@@ -751,6 +756,7 @@ uint8_t J1772EVSEController::doPost()
   }
 #endif
 
+#ifdef RGBLCD
   if ((svcState == OG)||(svcState == SR)||(svcState == FG)) {
     g_OBD.LcdSetBacklightColor(RED);
     g_OBD.SetGreenLed(0);
@@ -759,6 +765,7 @@ uint8_t J1772EVSEController::doPost()
   else {
     g_OBD.SetRedLed(0);
   }
+#endif
   m_Pilot.SetState(PILOT_STATE_P12);
 
 #ifdef SERDBG

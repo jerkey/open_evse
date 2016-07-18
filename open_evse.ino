@@ -329,13 +329,13 @@ void TempMonitor::Read()
 
 OnboardDisplay::OnboardDisplay()
 #if defined(I2CLCD) || defined(RGBLCD)
-#ifdef I2CLCD_PCF8574
+# ifdef I2CLCD_PCF8574
 // Set the pins on the I2C chip used for LCD connections:
 //                    addr, en,rw,rs,d4,d5,d6,d7,bl,blpol
   : m_Lcd(LCD_I2C_ADDR, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE)
-#else
+# else
   : m_Lcd(LCD_I2C_ADDR,1)
-#endif // I2CLCD_PCF8574
+# endif // I2CLCD_PCF8574
 #endif // defined(I2CLCD) || defined(RGBLCD)
 {
 }
@@ -355,7 +355,9 @@ const char CustomChar_3[8] PROGMEM = {0x0,0xe,0xc,0x1f,0x3,0x6,0xc,0x8}; // ligh
 void OnboardDisplay::MakeChar(uint8_t n, PGM_P bytes)
 {
   memcpy_P(g_sTmp, bytes, 8);
+#ifdef LCD16X2
   m_Lcd.createChar(n, (uint8_t*)g_sTmp);
+#endif
 }
 
 void OnboardDisplay::Init()
@@ -476,7 +478,9 @@ void OnboardDisplay::Update(int8_t updmode)
   if (g_EvseController.StateTransition() || (updmode != OBD_UPD_NORMAL)) {
     curms += 1000; // trigger periodic update code below
 
+#ifdef LCD16X2
     sprintf(g_sTmp,g_sRdyLAstr,(int)svclvl,currentcap);
+#endif
     switch(curstate) {
     case EVSE_STATE_A: // not connected
       SetGreenLed(1);
@@ -486,21 +490,21 @@ void OnboardDisplay::Update(int8_t updmode)
       // Display Timer and Stop Icon - GoldServe
       LcdClear();
       LcdSetCursor(0,0);
-#ifdef DELAYTIMER
+# ifdef DELAYTIMER
       g_DelayTimer.PrintTimerIcon();
-#endif //#ifdef DELAYTIMER
+# endif //#ifdef DELAYTIMER
       LcdPrint_P(g_psReady);
       LcdPrint(10,0,g_sTmp);
       
-#ifdef KWH_RECORDING 
+# ifdef KWH_RECORDING
       sprintf(g_sTmp,"%5luWh",(g_WattSeconds / 3600) );
       LcdPrint(0,1,g_sTmp);
       
       sprintf(g_sTmp,"%6lukWh",(g_WattHours_accumulated / 1000));  // display accumulated kWh
       LcdPrint(7,1,g_sTmp);
-#endif // KWH_RECORDING
+# endif // KWH_RECORDING
       
-#endif //Adafruit RGB LCD
+#endif //LCD16X2
       // n.b. blue LED is off
       break;
     case EVSE_STATE_B: // connected/not charging
@@ -644,8 +648,12 @@ void OnboardDisplay::Update(int8_t updmode)
     case EVSE_STATE_GFI_TEST_FAILED:
       SetGreenLed(0);
       SetRedLed(1);
+#ifdef RGBLCD
       LcdSetBacklightColor(RED);
+#endif
+#ifdef LCD16X2
       LcdMsg_P(g_psTestFailed,g_psGfci);
+#endif
       break;
     case EVSE_STATE_SLEEPING:
       SetGreenLed(1);
@@ -674,13 +682,15 @@ void OnboardDisplay::Update(int8_t updmode)
     
     if (!g_EvseController.InHardFault() &&
 	((curstate == EVSE_STATE_GFCI_FAULT) || (curstate == EVSE_STATE_NO_GROUND))) {
-      strcpy(g_sTmp,g_sRetryIn);
       int resetsec = (int)(g_EvseController.GetResetMs() / 1000ul);
+#ifdef LCD16X2
+      strcpy(g_sTmp,g_sRetryIn);
       if (resetsec >= 0) {
 	sprintf(g_sTmp+sizeof(g_sTmp)-6,g_sHHMMfmt,resetsec / 60,resetsec % 60);
 	strcat(g_sTmp,g_sTmp+sizeof(g_sTmp)-6);
 	LcdPrint(1,g_sTmp);
       }
+#endif
       return;
     }
 
@@ -2202,9 +2212,11 @@ void DelayTimer::Disable(){
   g_OBD.Update(OBD_UPD_FORCE);
 }
 void DelayTimer::PrintTimerIcon(){
+#ifdef LCD16X2
   if (IsTimerEnabled() && IsTimerValid()){
     g_OBD.LcdWrite(0x0);
   }
+#endif
 }
 // End Delay Timer Functions - GoldServe
 #endif //#ifdef DELAYTIMER
