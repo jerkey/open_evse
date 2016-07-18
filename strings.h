@@ -33,19 +33,19 @@ extern const char g_psSvcLevel[] PROGMEM;
 extern const char g_psMaxCurrent[] PROGMEM;
 extern const char g_psDiodeCheck[] PROGMEM;
 extern const char g_psVentReqChk[] PROGMEM;
-#ifdef RGBLCD
+# ifdef RGBLCD
 extern const char g_psBklType[] PROGMEM;
-#endif
-#ifdef ADVPWR
+# endif
+# ifdef ADVPWR
 extern const char g_psGndChk[] PROGMEM;
 extern const char g_psRlyChk[] PROGMEM;
-#endif // ADVPWR
-#ifdef GFI_SELFTEST
+# endif // ADVPWR
+# ifdef GFI_SELFTEST
 extern const char g_psGfiTest[] PROGMEM;
-#endif
-#ifdef TEMPERATURE_MONITORING
+# endif
+# ifdef TEMPERATURE_MONITORING
 extern const char g_psTempChk[] PROGMEM;
-#endif // TEMPERATURE_MONITORING
+# endif // TEMPERATURE_MONITORING
 #endif // BTN_MENU || SHOW_DISABLED_TEST
 
 #ifdef BTN_MENU
@@ -54,7 +54,7 @@ extern const char g_psResetNow[] PROGMEM;
 extern const char g_psReset[] PROGMEM;
 extern const char g_psExit[] PROGMEM;
 // Add additional strings - GoldServe
-#ifdef DELAYTIMER_MENU
+# ifdef DELAYTIMER_MENU
 extern const char g_psRTC[] PROGMEM;
 extern const char g_psRTC_Month[] PROGMEM;
 extern const char g_psRTC_Day[] PROGMEM;
@@ -66,27 +66,27 @@ extern const char g_psDelayTimerStartHour[] PROGMEM;
 extern const char g_psDelayTimerStartMin[] PROGMEM;
 extern const char g_psDelayTimerStopHour[] PROGMEM;
 extern const char g_psDelayTimerStopMin[] PROGMEM;
-#endif // DELAYTIMER_MENU
-#ifdef CHARGE_LIMIT
+# endif // DELAYTIMER_MENU
+# ifdef CHARGE_LIMIT
 extern const char g_psChargeLimit[] PROGMEM;
-#endif // CHARGE_LIMIT
-#ifdef TIME_LIMIT
+# endif // CHARGE_LIMIT
+# ifdef TIME_LIMIT
 extern const char g_psTimeLimit[] PROGMEM;
-#endif // TIME_LIMIT
-#ifdef RGBLCD
+# endif // TIME_LIMIT
+# ifdef RGBLCD
 extern const char *g_BklMenuItems[];
-#endif // RGBLCD
+# endif // RGBLCD
 #endif // BTN_MENU
 
 #ifdef LCD16X2
-#ifdef ADVPWR
+# ifdef ADVPWR
 extern const char g_psPwrOn[] PROGMEM;
 extern const char g_psSelfTest[] PROGMEM;
 extern const char g_psAutoDetect[] PROGMEM;
 extern const char g_psLevel1[] PROGMEM;
 extern const char g_psLevel2[] PROGMEM;
 extern const char g_psTestFailed[] PROGMEM;
-#endif // ADVPWR
+# endif // ADVPWR
 extern const char g_psEvseError[] PROGMEM;
 extern const char g_psSvcReq[] PROGMEM;
 extern const char g_psVentReq[] PROGMEM;
@@ -95,19 +95,19 @@ extern const char g_psGfciFault[] PROGMEM;
 extern const char g_psGfci[] PROGMEM;
 extern const char g_sRetryIn[];
 
-#ifdef TEMPERATURE_MONITORING
+# ifdef TEMPERATURE_MONITORING
 extern const char g_psTemperatureFault[] PROGMEM;
 extern const char g_psTempOnOff[] PROGMEM;
-#endif
+# endif
 extern const char g_psNoGround[] PROGMEM;
 extern const char g_psStuckRelay[] PROGMEM;
 extern const char g_psDisabled[] PROGMEM;
 //extern const char g_psWaiting[] PROGMEM;
 extern const char g_psSleeping[] PROGMEM;
 extern const char g_psEvConnected[] PROGMEM;
-#ifdef SHOW_DISABLED_TESTS
+# ifdef SHOW_DISABLED_TESTS
 extern const char g_psDisabledTests[] PROGMEM;
-#endif
+# endif
 extern const char g_sRdyLAstr[];
 extern const char g_psReady[] PROGMEM;
 extern const char g_psCharging[] PROGMEM;

@@ -31,19 +31,19 @@ const char g_psSvcLevel[] PROGMEM = "Service Level";
 const char g_psMaxCurrent[] PROGMEM = "Max Current";
 const char g_psDiodeCheck[] PROGMEM = "Diode Check";
 const char g_psVentReqChk[] PROGMEM = "Vent Req'd Check";
-#ifdef RGBLCD
+# ifdef RGBLCD
 const char g_psBklType[] PROGMEM = "Backlight Type";
-#endif
-#ifdef ADVPWR
+# endif
+# ifdef ADVPWR
 const char g_psGndChk[] PROGMEM = "Ground Check";
 const char g_psRlyChk[] PROGMEM = "Stuck Relay Chk";
-#endif // ADVPWR
-#ifdef GFI_SELFTEST
+# endif // ADVPWR
+# ifdef GFI_SELFTEST
 const char g_psGfiTest[] PROGMEM = "GFI Self Test";
-#endif
-#ifdef TEMPERATURE_MONITORING
+# endif
+# ifdef TEMPERATURE_MONITORING
 const char g_psTempChk[] PROGMEM = "Temperature Chk";
-#endif
+# endif
 #endif // BTN_MENU || SHOW_DISABLED_TEST
 
 #ifdef BTN_MENU
@@ -52,7 +52,7 @@ const char g_psResetNow[] PROGMEM = "Restart Now?";
 const char g_psReset[] PROGMEM = "Restart";
 const char g_psExit[] PROGMEM = "Exit";
 // Add additional strings - GoldServe
-#ifdef DELAYTIMER_MENU
+# ifdef DELAYTIMER_MENU
 const char g_psRTC[] PROGMEM = "Date/Time";
 const char g_psRTC_Month[] PROGMEM = "Month";
 const char g_psRTC_Day[] PROGMEM = "Day";
@@ -64,27 +64,27 @@ const char g_psDelayTimerStartHour[] PROGMEM = "Start Hour";
 const char g_psDelayTimerStartMin[] PROGMEM = "Start Min";
 const char g_psDelayTimerStopHour[] PROGMEM = "Stop Hour";
 const char g_psDelayTimerStopMin[] PROGMEM = "Stop Min";
-#endif // DELAYTIMER_MENU
-#ifdef CHARGE_LIMIT
+# endif // DELAYTIMER_MENU
+# ifdef CHARGE_LIMIT
 const char g_psChargeLimit[] PROGMEM = "Charge Limit";
-#endif // CHARGE_LIMIT
-#ifdef TIME_LIMIT
+# endif // CHARGE_LIMIT
+# ifdef TIME_LIMIT
 const char g_psTimeLimit[] PROGMEM = "Time Limit";
-#endif // TIME_LIMIT
-#ifdef RGBLCD
+# endif // TIME_LIMIT
+# ifdef RGBLCD
 const char *g_BklMenuItems[] = {"RGB","Monochrome"};
-#endif // RGBLCD
+# endif // RGBLCD
 #endif // BTN_MENU
 
 #ifdef LCD16X2
-#ifdef ADVPWR
+# ifdef ADVPWR
 const char g_psPwrOn[] PROGMEM = "Power On";
 const char g_psSelfTest[] PROGMEM = "Self Test";
 const char g_psAutoDetect[] PROGMEM = "Auto Detect";
 const char g_psLevel1[] PROGMEM = "Svc Level: L1";
 const char g_psLevel2[] PROGMEM = "Svc Level: L2";
 const char g_psTestFailed[] PROGMEM = "TEST FAILED";
-#endif // ADVPWR
+# endif // ADVPWR
 const char g_psEvseError[] PROGMEM =  "EVSE ERROR";
 const char g_psSvcReq[] PROGMEM =  "SERVICE REQUIRED";
 const char g_psVentReq[] PROGMEM = "VENT REQUIRED";
@@ -93,18 +93,18 @@ const char g_psGfciFault[] PROGMEM = "GFCI FAULT";
 const char g_psGfci[] PROGMEM = "GFCI";
 const char g_sRetryIn[] = "RETRY IN ";
 
-#ifdef TEMPERATURE_MONITORING
+# ifdef TEMPERATURE_MONITORING
 const char g_psTemperatureFault[] PROGMEM = "OVER TEMPERATURE";
-#endif
+# endif
 const char g_psNoGround[] PROGMEM = "NO GROUND";
 const char g_psStuckRelay[] PROGMEM = "STUCK RELAY";
 const char g_psDisabled[] PROGMEM =  "Disabled";
 //const char g_psWaiting[] PROGMEM =  "Waiting";
 const char g_psSleeping[] PROGMEM = "Sleeping";
 const char g_psEvConnected[] PROGMEM = "Connected";
-#ifdef SHOW_DISABLED_TESTS
+# ifdef SHOW_DISABLED_TESTS
 const char g_psDisabledTests[] PROGMEM = "TEST DISABLED";
-#endif
+# endif
 
 const char g_sRdyLAstr[] = "L%d:%dA";
 const char g_psReady[] PROGMEM = "Ready";
