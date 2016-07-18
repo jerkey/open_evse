@@ -206,7 +206,7 @@ void J1772EVSEController::ShowDisabledTests()
 		  ECF_STUCK_RELAY_CHK_DISABLED|
 		  ECF_GFI_TEST_DISABLED|
                   ECF_TEMP_CHK_DISABLED)) {
-#ifdef LCD16X2
+#ifdef RGBLCD
     g_OBD.LcdSetBacklightColor(YELLOW);
 #endif
 
@@ -234,7 +234,7 @@ void J1772EVSEController::ShowDisabledTests()
       DisabledTest_P(g_psTempChk);
     }
 #endif // TEMPERATURE_MONITORING
-#ifdef LCD16X2
+#ifdef RGBLCD
     g_OBD.LcdSetBacklightColor(WHITE);
 #endif
   }
