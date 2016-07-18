@@ -121,7 +121,7 @@
 #endif //AMMETER
 
 //Adafruit RGBLCD (MCP23017) - can have RGB or monochrome backlight
-//#define RGBLCD
+#define RGBLCD
 
 //select default LCD backlight mode. can be overridden w/CLI/RAPI
 #define BKL_TYPE_MONO 0
@@ -147,7 +147,7 @@
 // How to use 1-button menu
 // Long press activates menu
 // When within menus, short press cycles menu items, long press selects and exits current submenu
-// #define BTN_MENU
+#define BTN_MENU
 
 // When not in menus, short press instantly stops the EVSE - another short press resumes.  Long press activates menus
 // also allows menus to be manipulated even when in State B/C
