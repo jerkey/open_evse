@@ -279,7 +279,9 @@ void J1772EVSEController::HardFault()
 {
   SetHardFault();
   g_OBD.Update(OBD_UPD_HARDFAULT);
+#ifdef RAPI
   RapiSendEvseState();
+#endif
   while (1) {
     ProcessInputs(); // spin forever or until user resets via menu
     // if we're in P12 state, we can recover from the hard fault when EV
@@ -786,7 +788,9 @@ void J1772EVSEController::Init()
   m_EvseState = EVSE_STATE_UNKNOWN;
   m_PrevEvseState = EVSE_STATE_UNKNOWN;
 
+#ifdef RAPI
   RapiSendEvseState(0);
+#endif
 
   // read settings from EEPROM
   uint16_t rflgs = eeprom_read_word((uint16_t*)EOFS_FLAGS);
@@ -922,7 +926,9 @@ void J1772EVSEController::Init()
     if (fault) {
 #ifdef UL_COMPLIANT
       // UL wants EVSE to hard fault until power cycle if POST fails
+#ifdef RAPI
       RapiSendEvseState();
+#endif
       while (1) { // spin forever
 	  ProcessInputs();
       }
