@@ -33,9 +33,9 @@
 #include "i2caddr.h"
 
 #if defined(ARDUINO) && (ARDUINO >= 100)
-#include "Arduino.h"
+# include "Arduino.h"
 #else
-#include "WProgram.h" // shouldn't need this but arduino sometimes messes up and puts inside an #ifdef
+# include "WProgram.h" // shouldn't need this but arduino sometimes messes up and puts inside an #ifdef
 #endif // ARDUINO
 
 #define VERSION "3.11.3"
@@ -74,16 +74,16 @@
 
 #ifdef OPENEVSE_2
 // If the AC voltage is > 150,000 mV, then it's L2. Else, L1.
-#define L2_VOLTAGE_THRESHOLD (150000)
-#define VOLTMETER
+# define L2_VOLTAGE_THRESHOLD (150000)
+# define VOLTMETER
 // 35 ms is just a bit longer than 1.5 cycles at 50 Hz
-#define VOLTMETER_POLL_INTERVAL (35)
+# define VOLTMETER_POLL_INTERVAL (35)
 // This is just a wild guess
 // #define VOLTMETER_SCALE_FACTOR (266)     // original guess
-#define DEFAULT_VOLT_SCALE_FACTOR (262)        // calibrated for Craig K OpenEVSE II build
+# define DEFAULT_VOLT_SCALE_FACTOR (262)        // calibrated for Craig K OpenEVSE II build
 //#define DEFAULT_VOLT_SCALE_FACTOR (298)        // calibrated for lincomatic's OEII
 // #define VOLTMETER_OFFSET_FACTOR (40000)  // original guess
-#define DEFAULT_VOLT_OFFSET (46800)     // calibrated for Craig K OpenEVSE II build
+# define DEFAULT_VOLT_OFFSET (46800)     // calibrated for Craig K OpenEVSE II build
 //#define DEFAULT_VOLT_OFFSET (12018)     // calibrated for lincomatic's OEII
 #endif // OPENEVSE_2
 
@@ -104,7 +104,7 @@
 #define UL_GFI_SELFTEST
 
 #ifdef UL_GFI_SELFTEST
-#define GFI_SELFTEST
+# define GFI_SELFTEST
 #endif //UL_GFI_SELFTEST
 
 #define TEMPERATURE_MONITORING  // Temperature monitoring support
@@ -113,11 +113,11 @@
 #ifdef AMMETER
 // kWh Recording feature depends upon #AMMETER support
 // comment out KWH_RECORDING to have the elapsed time and time of day displayed on the second line of the LCD
-#define KWH_RECORDING
-#ifdef KWH_RECORDING
+# define KWH_RECORDING
+# ifdef KWH_RECORDING
 // stop charging after a certain kWh reached
-#define CHARGE_LIMIT
-#endif // KWH_RECORDING
+#  define CHARGE_LIMIT
+# endif // KWH_RECORDING
 #endif //AMMETER
 
 //Adafruit RGBLCD (MCP23017) - can have RGB or monochrome backlight
@@ -155,9 +155,9 @@
 
 #ifdef BTN_MENU
 // use Adafruit RGB LCD select button
-#ifdef RGBLCD
-#define ADAFRUIT_BTN
-#endif // RGBLCD
+# ifdef RGBLCD
+#  define ADAFRUIT_BTN
+# endif // RGBLCD
 #endif // BTN_MENU
 
 // Option for RTC and DelayTime
@@ -166,11 +166,11 @@
 
 #ifdef RTC
 // Option for Delay Timer - GoldServe
-#define DELAYTIMER
+# define DELAYTIMER
 
-#if defined(DELAYTIMER) && defined(BTN_MENU)
-#define DELAYTIMER_MENU
-#endif
+# if defined(DELAYTIMER) && defined(BTN_MENU)
+#  define DELAYTIMER_MENU
+# endif
 
 #endif // RTC
 
@@ -189,35 +189,35 @@
 //-- end features
 
 #ifndef RGBLCD
-#define DEFAULT_LCD_BKL_TYPE BKL_TYPE_MONO
+# define DEFAULT_LCD_BKL_TYPE BKL_TYPE_MONO
 #endif
 
 #if defined(RGBLCD) || defined(I2CLCD)
-#define LCD16X2
+# define LCD16X2
 //If LCD is not defined, undef BTN_MENU - requires LCD
 #else
-#undef BTN_MENU
+# undef BTN_MENU
 #endif // RGBLCD || I2CLCD
 
 #ifndef I2CLCD
-#undef I2CLCD_PCF8574
+# undef I2CLCD_PCF8574
 #endif
 
 //If LCD and RTC is defined, un-define CLI so we can save ram space.
 #if defined(SERIALCLI) && defined(DELAYTIMER_MENU)
-#error INVALID CONFIG - CANNOT enable SERIALCLI with DELAYTIMER_MENU together - too big
+# error INVALID CONFIG - CANNOT enable SERIALCLI with DELAYTIMER_MENU together - too big
 #endif
 
 #if defined(RAPI) && defined(SERIALCLI)
-#error INVALID CONFIG - CANNOT DEFINE SERIALCLI AND RAPI TOGETHER SINCE THEY BOTH USE THE SERIAL PORT
+# error INVALID CONFIG - CANNOT DEFINE SERIALCLI AND RAPI TOGETHER SINCE THEY BOTH USE THE SERIAL PORT
 #endif
 
 #if defined(OPENEVSE_2) && !defined(ADVPWR)
-#error INVALID CONFIG - OPENEVSE_2 implies/requires ADVPWR
+# error INVALID CONFIG - OPENEVSE_2 implies/requires ADVPWR
 #endif
 
 #if defined(UL_COMPLIANT) && !defined(GFI_SELFTEST)
-#error INVALID CONFIG - GFI SELF TEST NEEDED FOR UL COMPLIANCE
+# error INVALID CONFIG - GFI SELF TEST NEEDED FOR UL COMPLIANCE
 #endif
 
 // for testing print various diagnostic messages to the UART
@@ -277,9 +277,9 @@
 
 
 #ifdef SERIALCLI
-#define TMP_BUF_SIZE 64
+# define TMP_BUF_SIZE 64
 #else
-#define TMP_BUF_SIZE (LCD_MAX_CHARS_PER_LINE*2)
+# define TMP_BUF_SIZE (LCD_MAX_CHARS_PER_LINE*2)
 #endif // SERIALCLI
 
 
@@ -303,33 +303,33 @@
 #define CURRENT_PIN 0 // analog current reading pin ADCx
 #define PILOT_PIN 1 // analog pilot voltage reading pin ADCx
 #ifdef OPENEVSE_2
-#define VOLTMETER_PIN 2 // analog AC Line voltage voltemeter pin ADCx
+# define VOLTMETER_PIN 2 // analog AC Line voltage voltemeter pin ADCx
 // This pin must match the last write to CHARGING_PIN, modulo a delay. If
 // it is low when CHARGING_PIN is high, that's a missing ground.
 // If it's high when CHARGING_PIN is low, that's a stuck relay.
 // Auto L1/L2 is done with the voltmeter.
-#define ACLINE1_REG &PIND // OpenEVSE II has only one AC test pin.
-#define ACLINE1_IDX 3 
+# define ACLINE1_REG &PIND // OpenEVSE II has only one AC test pin.
+# define ACLINE1_IDX 3 
 
-#define CHARGING_REG &PIND // OpenEVSE II has just one relay pin.
-#define CHARGING_IDX 7 // OpenEVSE II has just one relay pin.
+# define CHARGING_REG &PIND // OpenEVSE II has just one relay pin.
+# define CHARGING_IDX 7 // OpenEVSE II has just one relay pin.
 #else // !OPENEVSE_2
  // TEST PIN 1 for L1/L2, ground and stuck relay
-#define ACLINE1_REG &PIND
-#define ACLINE1_IDX 3
+# define ACLINE1_REG &PIND
+# define ACLINE1_IDX 3
  // TEST PIN 2 for L1/L2, ground and stuck relay
-#define ACLINE2_REG &PIND
-#define ACLINE2_IDX 4
+# define ACLINE2_REG &PIND
+# define ACLINE2_IDX 4
 
 // digital Relay trigger pin
-#define CHARGING_REG &PINB
-#define CHARGING_IDX 0
+# define CHARGING_REG &PINB
+# define CHARGING_IDX 0
 // digital Relay trigger pin for second relay
-#define CHARGING2_REG &PIND
-#define CHARGING2_IDX 7
+# define CHARGING2_REG &PIND
+# define CHARGING2_IDX 7
 //digital Charging pin for AC relay
-#define CHARGINGAC_REG &PINB
-#define CHARGINGAC_IDX 1
+# define CHARGINGAC_REG &PINB
+# define CHARGINGAC_IDX 1
 
 // obsolete LED pin
 //#define RED_LED_REG &PIND
@@ -390,31 +390,31 @@
 #define AC_SAMPLE_MS 20 // 1 cycle @ 60Hz = 16.6667ms @ 50Hz = 20ms
 
 #ifdef GFI
-#define GFI_INTERRUPT 0 // interrupt number 0 = PD2, 1 = PD3
+# define GFI_INTERRUPT 0 // interrupt number 0 = PD2, 1 = PD3
 // interrupt number 0 = PD2, 1 = PD3
-#define GFI_REG &PIND
-#define GFI_IDX 2
+# define GFI_REG &PIND
+# define GFI_IDX 2
 
-#ifdef GFI_SELFTEST
+# ifdef GFI_SELFTEST
 // pin is supposed to be wrapped around the GFI CT 5+ times
-#define GFITEST_REG &PIND
-#define GFITEST_IDX 6
+#  define GFITEST_REG &PIND
+#  define GFITEST_IDX 6
 
-#define GFI_TEST_CYCLES 60
+#  define GFI_TEST_CYCLES 60
 // GFI pulse should be 50% duty cycle
-#define GFI_PULSE_ON_US 8333 // 1/2 of roughly 60 Hz.
-#define GFI_PULSE_OFF_US 8334 // 1/2 of roughly 60 Hz.
-#endif
+#  define GFI_PULSE_ON_US 8333 // 1/2 of roughly 60 Hz.
+#  define GFI_PULSE_OFF_US 8334 // 1/2 of roughly 60 Hz.
+# endif
 
 
-#ifdef GFI_TESTING
-#define GFI_TIMEOUT ((unsigned long)(15*1000))
-#define GFI_RETRY_COUNT  255
-#else // !GFI_TESTING
-#define GFI_TIMEOUT ((unsigned long)(5*60000)) // 15*60*1000 doesn't work. go figure
+# ifdef GFI_TESTING
+#  define GFI_TIMEOUT ((unsigned long)(15*1000))
+#  define GFI_RETRY_COUNT  255
+# else // !GFI_TESTING
+#  define GFI_TIMEOUT ((unsigned long)(5*60000)) // 15*60*1000 doesn't work. go figure
 // number of times to retry tests before giving up. 255 = retry indefinitely
-#define GFI_RETRY_COUNT  6
-#endif // GFI_TESTING
+#  define GFI_RETRY_COUNT  6
+# endif // GFI_TESTING
 #endif // GFI
 
 // for RGBLCD
@@ -430,18 +430,18 @@
 // Using LiquidTWI2 for both types of I2C LCD's
 // see http://blog.lincomatic.com/?p=956 for installation instructions
 #include "./Wire.h"
-#ifdef I2CLCD_PCF8574
-#include "./LiquidCrystal_I2C.h"
-#define LCD_I2C_ADDR 0x27
-#else
-#ifdef RGBLCD
-#define MCP23017 // Adafruit RGB LCD (PANELOLU2 is now supported without additional define)
-#else
-#define MCP23008 // Adafruit I2C Backpack
-#endif
-#include "./LiquidTWI2.h"
-#define LCD_I2C_ADDR 0x20 // for adafruit shield or backpack
-#endif // I2CLCD_PCF8574
+# ifdef I2CLCD_PCF8574
+# include "./LiquidCrystal_I2C.h"
+#  define LCD_I2C_ADDR 0x27
+# else
+#  ifdef RGBLCD
+#   define MCP23017 // Adafruit RGB LCD (PANELOLU2 is now supported without additional define)
+#  else
+#   define MCP23008 // Adafruit I2C Backpack
+#  endif
+# include "./LiquidTWI2.h"
+#  define LCD_I2C_ADDR 0x20 // for adafruit shield or backpack
+# endif // I2CLCD_PCF8574
 #endif // RGBLCD || I2CLCD
 
 // button sensing pin
@@ -455,10 +455,10 @@
 #ifdef RTC
 // Default start/stop timers for un-initialized EEPROMs.
 // Makes it easy to compile in default time without need to set it up the first time.
-#define DEFAULT_START_HOUR    0x00 //Start time: 00:05
-#define DEFAULT_START_MIN     0x05
-#define DEFAULT_STOP_HOUR     0x06 //End time: 6:55
-#define DEFAULT_STOP_MIN      0x37
+# define DEFAULT_START_HOUR    0x00 //Start time: 00:05
+# define DEFAULT_START_MIN     0x05
+# define DEFAULT_STOP_HOUR     0x06 //End time: 6:55
+# define DEFAULT_STOP_MIN      0x37
 #endif // RTC
 
 // for J1772.ReadPilot()
@@ -488,39 +488,39 @@
 // NOTE: setting DEFAULT_CURRENT_SCALE_FACTOR TO 0 will disable the ammeter
 // until it is overridden via RAPI
 //#define DEFAULT_CURRENT_SCALE_FACTOR 220   // Craig K, average of three OpenEVSE controller calibrations
-#ifdef OPENEVSE_2
-#define DEFAULT_CURRENT_SCALE_FACTOR 186   // OpenEVSE II with a 27 Ohm burden resistor, after a 2-point calibration at 12.5A and 50A
-#else
-#define DEFAULT_CURRENT_SCALE_FACTOR 220   // OpenEVSE v2.5 and v3 with a 22 Ohm burden resistor (note that the schematic may say 28 Ohms by mistake)
-#endif
+# ifdef OPENEVSE_2
+#  define DEFAULT_CURRENT_SCALE_FACTOR 186   // OpenEVSE II with a 27 Ohm burden resistor, after a 2-point calibration at 12.5A and 50A
+# else
+#  define DEFAULT_CURRENT_SCALE_FACTOR 220   // OpenEVSE v2.5 and v3 with a 22 Ohm burden resistor (note that the schematic may say 28 Ohms by mistake)
+# endif
 
 // subtract this from ammeter current reading to correct zero offset
-#ifdef OPENEVSE_2
-#define DEFAULT_AMMETER_CURRENT_OFFSET 230 // OpenEVSE II with a 27 Ohm burden resistor, after a 2-point calibration at 12.5A and 50A
-#else
-#define DEFAULT_AMMETER_CURRENT_OFFSET 0   // OpenEVSE v2.5 and v3 with a 22 Ohm burden resistor.  Could use a more thorough calibration exercise to nails this down.
-#endif
+# ifdef OPENEVSE_2
+#  define DEFAULT_AMMETER_CURRENT_OFFSET 230 // OpenEVSE II with a 27 Ohm burden resistor, after a 2-point calibration at 12.5A and 50A
+# else
+#  define DEFAULT_AMMETER_CURRENT_OFFSET 0   // OpenEVSE v2.5 and v3 with a 22 Ohm burden resistor.  Could use a more thorough calibration exercise to nails this down.
+# endif
 
-#ifdef KWH_RECORDING
-#define VOLTS_FOR_L1 120       // conventional for North America
+# ifdef KWH_RECORDING
+#  define VOLTS_FOR_L1 120       // conventional for North America
 //  #define VOLTS_FOR_L2 230   // conventional for most of the world
-#define VOLTS_FOR_L2 240       // conventional for North America
-#endif // KWH_RECORDING
+#  define VOLTS_FOR_L2 240       // conventional for North America
+# endif // KWH_RECORDING
 
 // The maximum number of milliseconds to sample an ammeter pin in order to find three zero-crossings.
 // one and a half cycles at 50 Hz is 30 ms.
-#define CURRENT_SAMPLE_INTERVAL 35
+# define CURRENT_SAMPLE_INTERVAL 35
 
 // Once we detect a zero-crossing, we should not look for one for another quarter cycle or so. 1/4 // cycle at 50 Hz is 5 ms.
-#define CURRENT_ZERO_DEBOUNCE_INTERVAL 5
+# define CURRENT_ZERO_DEBOUNCE_INTERVAL 5
 
 #endif // AMMETER
 
 #ifdef TEMPERATURE_MONITORING
 
-#define MCP9808_IS_ON_I2C    // Use the MCP9808 connected to I2C          
-#define TMP007_IS_ON_I2C     // Use the TMP007 IR sensor on I2C 
-#define TEMPERATURE_DISPLAY_ALWAYS 0     // Set this flag to 1 to always show temperatures on the bottom line of the 16X2 LCD
+# define MCP9808_IS_ON_I2C    // Use the MCP9808 connected to I2C          
+# define TMP007_IS_ON_I2C     // Use the TMP007 IR sensor on I2C 
+# define TEMPERATURE_DISPLAY_ALWAYS 0     // Set this flag to 1 to always show temperatures on the bottom line of the 16X2 LCD
                                          // Set to it 0 to only display when temperatures become elevated 
 // #define TESTING_TEMPERATURE_OPERATION // Set this flag to play with very low sensor thresholds or to evaluate the code.
                                          // Leave it commented out instead to run with normal temperature thresholds.
@@ -530,69 +530,69 @@
 // The RESTORE_AMPERAGE value must be lower than the THROTTLE_DOWN value
 // The THROTTLE_DOWN value must be lower than the SHUTDOWN value
 // The SHUTDOWN value must be lower than the PANIC value
-#ifndef TESTING_TEMPERATURE_OPERATION
+# ifndef TESTING_TEMPERATURE_OPERATION
 // normal oerational thresholds just below
 // This is the temperature in the enclosure where we tell the car to draw 1/2 amperage.
-#ifdef OPENEVSE_2
-#define TEMPERATURE_AMBIENT_THROTTLE_DOWN 650
-#else
-#define TEMPERATURE_AMBIENT_THROTTLE_DOWN 650
-#endif
+#  ifdef OPENEVSE_2
+#   define TEMPERATURE_AMBIENT_THROTTLE_DOWN 650
+#  else
+#   define TEMPERATURE_AMBIENT_THROTTLE_DOWN 650
+#  endif
 
 // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
 // recover to this level we can kick the current back up to the user's original amperage setting.
-#ifdef OPENEVSE_2
-#define TEMPERATURE_AMBIENT_RESTORE_AMPERAGE 620
-#else
-#define TEMPERATURE_AMBIENT_RESTORE_AMPERAGE 620
-#endif
+#  ifdef OPENEVSE_2
+#   define TEMPERATURE_AMBIENT_RESTORE_AMPERAGE 620
+#  else
+#   define TEMPERATURE_AMBIENT_RESTORE_AMPERAGE 620
+#  endif
 
 // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
-#ifdef OPENEVSE_2
-#define TEMPERATURE_AMBIENT_SHUTDOWN 680
-#else
-#define TEMPERATURE_AMBIENT_SHUTDOWN 680
-#endif
+#  ifdef OPENEVSE_2
+#   define TEMPERATURE_AMBIENT_SHUTDOWN 680
+#  else
+#   define TEMPERATURE_AMBIENT_SHUTDOWN 680
+#  endif
                                                   
 //  At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
 //  an over temperature error state.  The EVSE can be restart from the button or unplugged.
 //  If temperatures get to this level it is advised to open the enclosure to look for trouble.
-#ifdef OPENEVSE_2
-#define TEMPERATURE_AMBIENT_PANIC 710
-#else
-#define TEMPERATURE_AMBIENT_PANIC 710
-#endif
+#  ifdef OPENEVSE_2
+#   define TEMPERATURE_AMBIENT_PANIC 710
+#  else
+#   define TEMPERATURE_AMBIENT_PANIC 710
+#  endif
 
-#define TEMPERATURE_INFRARED_THROTTLE_DOWN 650    // This is the temperature seen  by the IR sensor where we tell the car to draw 1/2 amperage.
-#define TEMPERATURE_INFRARED_RESTORE_AMPERAGE 600 // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
+#  define TEMPERATURE_INFRARED_THROTTLE_DOWN 650    // This is the temperature seen  by the IR sensor where we tell the car to draw 1/2 amperage.
+#  define TEMPERATURE_INFRARED_RESTORE_AMPERAGE 600 // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
                                                   // recover to this level we can kick the current back up to the user's original amperage setting.
-#define TEMPERATURE_INFRARED_SHUTDOWN 700         // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
+#  define TEMPERATURE_INFRARED_SHUTDOWN 700         // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
 
-#define TEMPERATURE_INFRARED_PANIC 750            //  At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
+#  define TEMPERATURE_INFRARED_PANIC 750            //  At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
                                                   //  an over temperature error state.  The EVSE can be restart from the button or unplugged.
                                                   //  If temperatures get to this level it is advised to open the enclosure to look for trouble.
-#else  //TESTING_TEMPERATURE_OPERATION
+# else  //TESTING_TEMPERATURE_OPERATION
 
 // Below are good values for testing purposes at room temperature with an EV simulator and no actual high current flowing
-#define TEMPERATURE_AMBIENT_THROTTLE_DOWN 290     // This is the temperature in the enclosure where we tell the car to draw 1/2 amperage.
-#define TEMPERATURE_AMBIENT_RESTORE_AMPERAGE 270  // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
+#  define TEMPERATURE_AMBIENT_THROTTLE_DOWN 290     // This is the temperature in the enclosure where we tell the car to draw 1/2 amperage.
+#  define TEMPERATURE_AMBIENT_RESTORE_AMPERAGE 270  // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
                                                   // recover to this level we can kick the current back up to the user's original amperage setting.
-#define TEMPERATURE_AMBIENT_SHUTDOWN 310          // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
+#  define TEMPERATURE_AMBIENT_SHUTDOWN 310          // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
 
-#define TEMPERATURE_AMBIENT_PANIC 330             //  At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
+#  define TEMPERATURE_AMBIENT_PANIC 330             //  At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
                                                   //  an over temperature error state.  The EVSE can be restart from the button or unplugged.
                                                   //  If temperatures get to this level it is advised to open the enclosure to look for trouble.                              
 
-#define TEMPERATURE_INFRARED_THROTTLE_DOWN 330    // This is the temperature seen  by the IR sensor where we tell the car to draw 1/2 amperage.
-#define TEMPERATURE_INFRARED_RESTORE_AMPERAGE 270 // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
+#  define TEMPERATURE_INFRARED_THROTTLE_DOWN 330    // This is the temperature seen  by the IR sensor where we tell the car to draw 1/2 amperage.
+#  define TEMPERATURE_INFRARED_RESTORE_AMPERAGE 270 // If the OpenEVSE responds nicely to the lower current drawn and temperatures in the enclosure
                                                   // recover to this level we can kick the current back up to the user's original amperage setting.
-#define TEMPERATURE_INFRARED_SHUTDOWN 360         // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
+#  define TEMPERATURE_INFRARED_SHUTDOWN 360         // This is the temperature in the enclosure where we tell the car to draw 1/4 amperage or 6A is minimum.
 
-#define TEMPERATURE_INFRARED_PANIC 400            // At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
+#  define TEMPERATURE_INFRARED_PANIC 400            // At this temperature gracefully tell the EV to quit drawing any current, and leave the EVSE in 
                                                   // an over temperature error state.  The EVSE can be restart from the button or unplugged.
                                                   // If temperatures get to this level it is advised to open the enclosure to look for trouble.
 
-#endif // TESTING_TEMPERATURE_OPERATION 
+# endif // TESTING_TEMPERATURE_OPERATION 
 
 #endif // TEMPERATURE_MONITORING
 
@@ -616,11 +616,11 @@ typedef union union4b {
 //-- begin class definitions
 
 #ifdef WATCHDOG
-#define WDT_RESET() wdt_reset() // pat the dog
-#define WDT_ENABLE() wdt_enable(WATCHDOG_TIMEOUT)
+# define WDT_RESET() wdt_reset() // pat the dog
+# define WDT_ENABLE() wdt_enable(WATCHDOG_TIMEOUT)
 #else
-#define WDT_RESET()
-#define WDT_ENABLE()
+# define WDT_RESET()
+# define WDT_ENABLE()
 #endif // WATCHDOG
 
 #include "serialcli.h"
@@ -643,11 +643,11 @@ class OnboardDisplay
   DigitalPin pinGreenLed;
 #endif
 #if defined(RGBLCD) || defined(I2CLCD)
-#ifdef I2CLCD_PCF8574
+# ifdef I2CLCD_PCF8574
   LiquidCrystal_I2C m_Lcd;  
-#else
+# else
   LiquidTWI2 m_Lcd;
-#endif // I2CLCD_PCF8574
+# endif // I2CLCD_PCF8574
 #endif // defined(RGBLCD) || defined(I2CLCD)
   uint8_t m_bFlags;
   char m_strBuf[LCD_MAX_CHARS_PER_LINE+1];
@@ -673,17 +673,17 @@ public:
   }
 #ifdef LCD16X2
   void LcdBegin(int x,int y) { 
-#ifdef I2CLCD
-#ifndef I2CLCD_PCF8574
+# ifdef I2CLCD
+#  ifndef I2CLCD_PCF8574
     m_Lcd.setMCPType(LTI_TYPE_MCP23008);
-#endif
+#  endif
     m_Lcd.begin(x,y); 
     m_Lcd.setBacklight(HIGH);
-#elif defined(RGBLCD)
+# elif defined(RGBLCD)
     m_Lcd.setMCPType(LTI_TYPE_MCP23017);
     m_Lcd.begin(x,y,2); 
     m_Lcd.setBacklight(WHITE);
-#endif // I2CLCD
+# endif // I2CLCD
   }
   void LcdPrint(const char *s) {
     m_Lcd.print(s); 
@@ -715,30 +715,30 @@ public:
   void LcdMsg(const char *l1,const char *l2);
   void LcdMsg_P(PGM_P l1,PGM_P l2);
   void LcdSetBacklightType(uint8_t t,uint8_t update=OBD_UPD_FORCE) { // BKL_TYPE_XXX
-#ifdef RGBLCD
+# ifdef RGBLCD
     if (t == BKL_TYPE_RGB) m_bFlags &= ~OBDF_MONO_BACKLIGHT;
     else m_bFlags |= OBDF_MONO_BACKLIGHT;
     Update(update);
-#endif // RGBLCD
+# endif // RGBLCD
   }
   uint8_t IsLcdBacklightMono() {
-#ifdef RGBLCD
+# ifdef RGBLCD
     return (m_bFlags & OBDF_MONO_BACKLIGHT) ? 1 : 0;
-#else
+# else
     return 1;
-#endif // RGBLCD
+# endif // RGBLCD
   }
   void LcdSetBacklightColor(uint8_t c) {
-#ifdef RGBLCD
+# ifdef RGBLCD
     if (IsLcdBacklightMono()) {
       if (c) c = WHITE;
     }
     m_Lcd.setBacklight(c);
-#endif // RGBLCD
+# endif // RGBLCD
   }
-#ifdef RGBLCD
+# ifdef RGBLCD
   uint8_t readButtons() { return m_Lcd.readButtons(); }
-#endif // RGBLCD
+# endif // RGBLCD
 #endif // LCD16X2
 
 #ifdef AMMETER
@@ -764,26 +764,26 @@ public:
 #include "./MCP9808.h"  //  adding the ambient temp sensor to I2C
 #include "./Adafruit_TMP007.h"   //  adding the TMP007 IR I2C sensor
 
-#define TEMPMONITOR_UPDATE_INTERVAL 1000ul
+# define TEMPMONITOR_UPDATE_INTERVAL 1000ul
 // TempMonitor.m_Flags
-#define TMF_OVERTEMPERATURE          0x01
-#define TMF_OVERTEMPERATURE_SHUTDOWN 0x02
-#define TMF_BLINK_ALARM              0x04
+# define TMF_OVERTEMPERATURE          0x01
+# define TMF_OVERTEMPERATURE_SHUTDOWN 0x02
+# define TMF_BLINK_ALARM              0x04
 class TempMonitor {
   uint8_t m_Flags;
   unsigned long m_LastUpdate;
 public:
-#ifdef MCP9808_IS_ON_I2C
+# ifdef MCP9808_IS_ON_I2C
   MCP9808 m_tempSensor;
-#endif  //MCP9808_IS_ON_I2C
-#ifdef TMP007_IS_ON_I2C
+# endif  //MCP9808_IS_ON_I2C
+# ifdef TMP007_IS_ON_I2C
   Adafruit_TMP007 m_tmp007;
-#endif  //TMP007_IS_ON_I2C
-#ifdef TEMPERATURE_MONITORING_NY
+# endif  //TMP007_IS_ON_I2C
+# ifdef TEMPERATURE_MONITORING_NY
   int16_t m_ambient_thresh;
   int16_t m_ir_thresh;
   int16_t m_TMP007_thresh;
-#endif //TEMPERATURE_MONITORING_NY
+# endif //TEMPERATURE_MONITORING_NY
   // these three temperatures need to be signed integers
   int16_t m_MCP9808_temperature;  // 230 means 23.0C  Using an integer to save on floating point library use
   int16_t m_DS3231_temperature;   // the DS3231 RTC has a built in temperature sensor
@@ -808,10 +808,10 @@ public:
     else m_Flags &= ~TMF_OVERTEMPERATURE_SHUTDOWN;
   }
   int8_t OverTemperatureShutdown() { return (m_Flags & TMF_OVERTEMPERATURE_SHUTDOWN) ? 1 : 0; }
-#ifdef TEMPERATURE_MONITORING_NY
+# ifdef TEMPERATURE_MONITORING_NY
   void LoadThresh();
   void SaveThresh();
-#endif //TEMPERATURE_MONITORING_NY
+# endif //TEMPERATURE_MONITORING_NY
 };
 #endif // TEMPERATURE_MONITORING
 
@@ -819,13 +819,13 @@ public:
 #include "J1772EvseController.h"
 
 #ifdef BTN_MENU
-#define BTN_STATE_OFF   0
-#define BTN_STATE_SHORT 1 // short press
-#define BTN_STATE_LONG  2 // long press
+# define BTN_STATE_OFF   0
+# define BTN_STATE_SHORT 1 // short press
+# define BTN_STATE_LONG  2 // long press
 class Btn {
-#ifdef BTN_REG
+# ifdef BTN_REG
   DigitalPin pinBtn;
-#endif
+# endif
   uint8_t buttonState;
   unsigned long lastDebounceTime;  // the last time the output pin was toggled
   unsigned long vlongDebounceTime;  // for verylong press
@@ -856,17 +856,17 @@ public:
 
 class SettingsMenu : public Menu {
   uint8_t m_menuCnt;
-#if defined(CHARGE_LIMIT)||defined(TIME_LIMIT)
+# if defined(CHARGE_LIMIT)||defined(TIME_LIMIT)
   uint8_t m_skipLimits;
-#endif
+# endif
 public:
   SettingsMenu();
   void Init();
   void Next();
   Menu *Select();
-#if defined(CHARGE_LIMIT) || defined(TIME_LIMIT)
+# if defined(CHARGE_LIMIT) || defined(TIME_LIMIT)
   void CheckSkipLimits();
-#endif
+# endif
 };
 
 class SetupMenu : public Menu {
@@ -904,7 +904,7 @@ public:
   Menu *Select();
 };
 
-#ifdef GFI_SELFTEST
+# ifdef GFI_SELFTEST
 class GfiTestMenu : public Menu {
 public:
   GfiTestMenu();
@@ -912,9 +912,9 @@ public:
   void Next();
   Menu *Select();
 };
-#endif
+# endif
 
-#ifdef TEMPERATURE_MONITORING
+# ifdef TEMPERATURE_MONITORING
 class TempOnOffMenu : public Menu {
 public:
   TempOnOffMenu();
@@ -922,7 +922,7 @@ public:
   void Next();
   Menu *Select();
 };
-#endif  // TEMPERATURE_MONITORING
+# endif  // TEMPERATURE_MONITORING
 
 class VentReqMenu : public Menu {
 public:
@@ -933,7 +933,7 @@ public:
 };
 
 
-#ifdef ADVPWR
+# ifdef ADVPWR
 class GndChkMenu : public Menu {
 public:
   GndChkMenu();
@@ -950,7 +950,7 @@ public:
   Menu *Select();
 };
 
-#endif // ADVPWR
+# endif // ADVPWR
 class ResetMenu : public Menu {
 public:
   ResetMenu();
@@ -959,7 +959,7 @@ public:
   Menu *Select();
 };
 
-#ifdef RGBLCD
+# ifdef RGBLCD
 class BklTypeMenu : public Menu {
 public:
   BklTypeMenu();
@@ -967,9 +967,9 @@ public:
   void Next();
   Menu *Select();
 };
-#endif // RGBLCD
+# endif // RGBLCD
 
-#if defined(DELAYTIMER)
+# if defined(DELAYTIMER)
 class RTCMenu : public Menu {
 public:
   RTCMenu();
@@ -1056,9 +1056,9 @@ public:
   void Next();
   Menu *Select();
 };
-#endif // DELAYTIMER
+# endif // DELAYTIMER
 
-#ifdef CHARGE_LIMIT
+# ifdef CHARGE_LIMIT
 class ChargeLimitMenu  : public Menu {
   void showCurSel(uint8_t plus=0);
 public:
@@ -1067,9 +1067,9 @@ public:
   void Next();
   Menu *Select();
 };
-#endif // CHARGE_LIMIT
+# endif // CHARGE_LIMIT
 
-#ifdef TIME_LIMIT
+# ifdef TIME_LIMIT
 class TimeLimitMenu  : public Menu {
   void showCurSel(uint8_t plus=0);
 public:
@@ -1078,7 +1078,7 @@ public:
   void Next();
   Menu *Select();
 };
-#endif // TIME_LIMIT
+# endif // TIME_LIMIT
 
 class BtnHandler {
   Btn m_Btn;
